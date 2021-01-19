@@ -1,9 +1,11 @@
 import that
 # the 'to be interpreted' file's path is either the input one or the default one
-file_path = r'C:\Users\Stas\Desktop\test.bf'
+default_path = r'C:\Users\Stas\Desktop\test.bf'
 input_path = input('Which file do you want me to interpret (press Enter to use the default path): ')
 if input_path:
     file_path = input_path
+else:
+    file_path = default_path
 # the whether to print numbers or unicode symbols
 symbols_mode = False
 # creating the memory list giving it some space
