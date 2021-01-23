@@ -1,4 +1,5 @@
 import that
+
 # the 'to be interpreted' file's path is either the input one or the default one
 default_path = r'C:\Users\Stas\Desktop\test.bf'
 input_path = input('Which file do you want me to interpret (press Enter to use the default path): ')
@@ -8,7 +9,7 @@ else:
     file_path = default_path
 # the whether to print numbers or unicode symbols
 symbols_mode = False
-# creating the memory list giving it some space
+# creating the memory list and giving it some space
 memory = []
 current_index = 0
 for _ in range(30000):
@@ -22,24 +23,29 @@ script = ''.join(script)
 
 def find_the_end_of_the_cycle_index(start_index, code):
     """Returns the index of the cycle's end"""
-    # number of  enclosed cycles
+    # counting the number of  enclosed cycles
     enclosed = 0
     for i in range(start_index + 1, len(code)):
+        # the cycle starts
         if code[i] == '[':
             enclosed += 1
+        # when there are no enclosed cycles
         if code[i] == ']' and enclosed == 0:
             return i
+        # some cycle ends
         elif code[i] == ']' and enclosed != 0:
             enclosed -= 1
 
 
 def interpret(code):
-    """Interprets the code"""
+    """Interprets the brainfuck code"""
     # including global variables
     global current_index
     global memory
     i = 0
-    # parsing each symbol of the code
+    # going through the each symbol of the brainfuck script (parsing)
+    # (we use while instead of for because when the cycle is recursively interpreted
+    # parsing continues from the the exact same place and interprets it one more time)
     while i < len(code):
         # checking if code is valid and doesn't have any unexpected symbols
         if code[i] not in symbols:
