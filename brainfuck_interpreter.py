@@ -21,7 +21,7 @@ script = [s.strip() for s in open(file_path, 'r').readlines()]
 script = ''.join(script)
 
 
-def find_the_end_of_the_cycle_index(start_index, code):
+def find_the_end_of_the_cycle_index(code, start_index):
     """Returns the index of the cycle's end"""
     # counting the number of  enclosed cycles
     enclosed = 0
@@ -84,9 +84,9 @@ def interpret(code):
         # parses the code inside [] while current cell's value isn't exactly 0
         elif code[i] == '[':
             while memory[current_index]:
-                interpret(code[i + 1:find_the_end_of_the_cycle_index(i, code)])
-            i += find_the_end_of_the_cycle_index(i, code) - i
-        # we don't actually need to do something with this particular symbol as we have already found
+                interpret(code[i + 1:find_the_end_of_the_cycle_index(code, i)])
+            i += find_the_end_of_the_cycle_index(code, i) - i
+        # we don't actually need to do something with this particular symbol as we have already reached
         # the end of the cycle (check find_the_end_of_the_cycle_index function)
         elif code[i] == ']':
             continue
