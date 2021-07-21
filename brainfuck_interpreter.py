@@ -7,7 +7,7 @@ if input_path:
     file_path = input_path
 else:
     file_path = default_path
-# the whether to print numbers or unicode symbols
+# whether to print numbers or unicode symbols
 symbols_mode = False
 # creating the memory list and giving it some space
 memory = []
@@ -22,7 +22,7 @@ script = ''.join(script)
 
 
 def find_the_end_of_the_cycle_index(code, start_index):
-    """Returns the index of the cycle's end"""
+    """Returns the index of cycle's end"""
     # counting the number of  enclosed cycles
     enclosed = 0
     for i in range(start_index + 1, len(code)):
@@ -38,14 +38,14 @@ def find_the_end_of_the_cycle_index(code, start_index):
 
 
 def interpret(code):
-    """Interprets the brainfuck code"""
+    """Interprets brainfuck code"""
     # including global variables
     global current_index
     global memory
     i = 0
-    # going through the each symbol of the brainfuck script (parsing)
-    # (we use while instead of for because when the cycle is recursively interpreted
-    # parsing continues from the the exact same place and interprets it one more time)
+    # going through each symbol of the brainfuck script (parsing)
+    # (we use while instead of for because when the cycle is being recursively interpreted
+    # parsing continues from the the exact same place and interprets it one extra time)
     while i < len(code):
         # checking if code is valid and doesn't have any unexpected symbols
         if code[i] not in symbols:
@@ -81,7 +81,7 @@ def interpret(code):
                 inputs = input()
                 memory[current_index] = ord(inputs[0]) if inputs else 0
             memory[current_index] = int(input())
-        # parses the code inside [] while current cell's value isn't exactly 0
+        # parses the code inside [] while current cell's value isn't 0
         elif code[i] == '[':
             while memory[current_index]:
                 interpret(code[i + 1:find_the_end_of_the_cycle_index(code, i)])
@@ -93,11 +93,11 @@ def interpret(code):
         i += 1
 
 
+# let's run the code
+interpret(script)
+
 # resetting all the parameters
 current_index = 0
 for k in range(30000):
     memory[k] = 0
-
-
-# let's run the code
-interpret(script)
+    
